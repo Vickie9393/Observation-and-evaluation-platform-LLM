@@ -34,7 +34,11 @@ const Login = () => {
         setError('Registration successful. Please login.');
       }
     } catch (err) {
-      setError(err.response?.data?.detail || 'An error occurred');
+      if (!err.response) {
+        setError(`Cannot connect to backend API (${api.defaults.baseURL}). Make sure the backend server is running and accessible.`);
+      } else {
+        setError(err.response?.data?.detail || 'An error occurred during authentication.');
+      }
     } finally {
       setLoading(false);
     }
