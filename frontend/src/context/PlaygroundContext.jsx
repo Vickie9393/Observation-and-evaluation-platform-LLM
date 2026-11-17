@@ -78,8 +78,9 @@ export const PlaygroundProvider = ({ children }) => {
         payload.document_id = pdfContext;
       }
 
+      const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
       const res = await axios.post(
-        'http://localhost:8000/v1/chat/completions',
+        `${baseUrl}/v1/chat/completions`,
         payload,
         {
           headers: {

@@ -81,7 +81,8 @@ const Playground = () => {
     formData.append('file', file);
     
     try {
-      const res = await axios.post('http://localhost:8000/v1/parse-pdf', formData, {
+      const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+      const res = await axios.post(`${baseUrl}/v1/parse-pdf`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       setPdfContext(res.data.document_id);
