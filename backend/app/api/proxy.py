@@ -4,6 +4,7 @@ from app.core.database import get_db
 from app.api.traces import get_project_by_api_key, calculate_cost
 from app.models.trace import Trace
 from app.workers.celery_worker import evaluate_trace_task
+import os
 import uuid
 import time
 import httpx
@@ -16,7 +17,7 @@ router = APIRouter()
 chroma_client = chromadb.Client()
 embedding_fn = embedding_functions.DefaultEmbeddingFunction()
 
-OLLAMA_BASE_URL = "http://localhost:11434/v1/chat/completions"
+OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434/v1/chat/completions")
 
 @router.post("/chat/completions")
 async def chat_completions(
